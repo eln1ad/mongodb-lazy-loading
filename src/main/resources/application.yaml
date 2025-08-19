@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mongodb-lazy-loading
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/lazyloadingtest
+
+server:
+  port: 8081
