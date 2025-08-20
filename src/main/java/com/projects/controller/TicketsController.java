@@ -23,7 +23,7 @@ public class TicketsController {
     private final TicketService ticketService;
 
     @GetMapping
-    public List<Ticket> getTickets(@RequestParam(required = false, name = "user_id") String id, @RequestParam(required = false, name = "user_login") String login) {
+    public List<Ticket> getTickets(@RequestParam(required = false, name = "user_id") String id, @RequestParam(required = false, name = "user_login") String login) throws Exception {
         if (id != null) {
             return ticketService.findAllByUserId(id);
         }

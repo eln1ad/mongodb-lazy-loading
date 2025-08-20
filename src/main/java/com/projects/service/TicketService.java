@@ -2,11 +2,6 @@ package com.projects.service;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
-import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import com.projects.model.Ticket;
@@ -30,8 +25,9 @@ public class TicketService {
         return ticketRepository.findAllByUserId(id);
     }
 
-    public List<Ticket> findAllByUserLogin(String login) {
-        return ticketRepository.findAllByUserLogin(login);
+    public List<Ticket> findAllByUserLogin(String login) throws Exception {
+        User user = userRepository.findByLogin(login).orElseThrow(() -> new Exception());
+        return user.getTickets();
     }
 
     public Ticket findById(String id) throws Exception {
