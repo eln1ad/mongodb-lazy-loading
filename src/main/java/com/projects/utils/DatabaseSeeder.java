@@ -47,11 +47,25 @@ public class DatabaseSeeder implements CommandLineRunner {
             Ticket zsoltTicketSecond = new Ticket();
             zsoltTicketSecond.setTitle("Zsolt's 2nd ticket");
 
-            List<Ticket> daniTickets = ticketRepository.insert(List.of(daniTicketFirst, daniTicketSecond, daniTicketThird));
-            List<Ticket> zsoltTickets = ticketRepository.insert(List.of(zsoltTicketFirst, zsoltTicketSecond));
+            // List<Ticket> daniTickets = ticketRepository.insert(List.of(daniTicketFirst, daniTicketSecond, daniTicketThird));
+            // List<Ticket> zsoltTickets = ticketRepository.insert(List.of(zsoltTicketFirst, zsoltTicketSecond));
 
-            dani.setTickets(daniTickets);
-            zsolt.setTickets(zsoltTickets);
+            // dani.setTickets(daniTickets);
+            // zsolt.setTickets(zsoltTickets);
+
+            daniTicketFirst.setUser(dani);
+            daniTicketSecond.setUser(dani);
+            daniTicketThird.setUser(dani);
+
+            zsoltTicketFirst.setUser(zsolt);
+            zsoltTicketSecond.setUser(zsolt);
+
+            ticketRepository.insert(daniTicketFirst);
+            ticketRepository.insert(daniTicketSecond);
+            ticketRepository.insert(daniTicketThird);
+            
+            ticketRepository.insert(zsoltTicketFirst);
+            ticketRepository.insert(zsoltTicketSecond);
 
             userRepository.insert(dani);
             userRepository.insert(zsolt);

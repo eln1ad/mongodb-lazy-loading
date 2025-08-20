@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projects.model.Ticket;
@@ -22,7 +23,10 @@ public class TicketsController {
     private final TicketService ticketService;
 
     @GetMapping
-    public List<Ticket> getTickets() {
+    public List<Ticket> getTickets(@RequestParam(required = false, name = "user_login") String login) {
+        if (login != null) {
+            return ticketService.findAllByUserLogin(login);
+        }
         return ticketService.findAll();
     }
 

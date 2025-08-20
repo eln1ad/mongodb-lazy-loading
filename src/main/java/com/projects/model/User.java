@@ -3,6 +3,7 @@ package com.projects.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -15,6 +16,7 @@ public class User {
     private String login;
     private String password;
 
-    @DocumentReference
+    @ReadOnlyProperty
+    @DocumentReference(lazy = true)
     List<Ticket> tickets;
 }

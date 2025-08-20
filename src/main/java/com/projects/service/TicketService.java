@@ -18,6 +18,10 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
+    public List<Ticket> findAllByUserLogin(String login) {
+        return ticketRepository.findAllByUserLogin(login);
+    }
+
     public Ticket findById(String id) throws Exception {
         return ticketRepository.findById(id).orElseThrow(() -> new Exception());
     }
