@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class TicketService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
-    private final MongoTemplate mongoTemplate;
 
     public List<Ticket> findAll() {
         return ticketRepository.findAll();
@@ -32,13 +31,7 @@ public class TicketService {
     }
 
     public List<Ticket> findAllByUserLogin(String login) {
-        TypedAggregation<Ticket> aggregation = Aggregation.newAggregation(Ticket.class,
-            Aggregation.addFields().addFieldWithValue("convertedUserId", ConvertOperators.ToObjectId.toObjectId("$userId")).build(),
-            Aggregation.lookup().from("Users").localField("convertedUserId").foreignField("_id").as("user"),
-            Aggregation.unwind("user"),
-            Aggregation.match(Criteria.where("user.login").is(login))
-        );
-        return mongoTemplate.aggregate(aggregation, Ticket.class).getMappedResults();
+        return ticketRepository.findAllByUserLogin(login);
     }
 
     public Ticket findById(String id) throws Exception {
