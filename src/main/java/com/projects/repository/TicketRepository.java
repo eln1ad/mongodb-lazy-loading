@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.projects.model.Ticket;
 
 public interface TicketRepository extends MongoRepository<Ticket, String> {
-    List<Ticket> findAllByUserLogin(String login);
+    List<Ticket> findAllByUserId(String id);
 }

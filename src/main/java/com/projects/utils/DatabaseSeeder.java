@@ -31,6 +31,9 @@ public class DatabaseSeeder implements CommandLineRunner {
             User zsolt = new User();
             zsolt.setLogin("zsolt");
             zsolt.setPassword("zsolt");
+
+            userRepository.insert(dani);
+            userRepository.insert(zsolt);
             
             Ticket daniTicketFirst = new Ticket();
             daniTicketFirst.setTitle("Dani's 1st ticket");
@@ -47,29 +50,21 @@ public class DatabaseSeeder implements CommandLineRunner {
             Ticket zsoltTicketSecond = new Ticket();
             zsoltTicketSecond.setTitle("Zsolt's 2nd ticket");
 
-            // List<Ticket> daniTickets = ticketRepository.insert(List.of(daniTicketFirst, daniTicketSecond, daniTicketThird));
-            // List<Ticket> zsoltTickets = ticketRepository.insert(List.of(zsoltTicketFirst, zsoltTicketSecond));
+            List<Ticket> daniTickets = List.of(daniTicketFirst, daniTicketSecond, daniTicketThird);
+            List<Ticket> zsoltTickets = List.of(zsoltTicketFirst, zsoltTicketSecond);
 
-            // dani.setTickets(daniTickets);
-            // zsolt.setTickets(zsoltTickets);
+            dani.setTickets(daniTickets);
+            zsolt.setTickets(zsoltTickets);
 
-            daniTicketFirst.setUser(dani);
-            daniTicketSecond.setUser(dani);
-            daniTicketThird.setUser(dani);
+            daniTickets.forEach(ticket -> ticket.setUserId(dani.getId()));
+            zsoltTickets.forEach(ticket -> ticket.setUserId(zsolt.getId()));
 
-            zsoltTicketFirst.setUser(zsolt);
-            zsoltTicketSecond.setUser(zsolt);
+            ticketRepository.insert(daniTickets);
+            ticketRepository.insert(zsoltTickets);
 
-            ticketRepository.insert(daniTicketFirst);
-            ticketRepository.insert(daniTicketSecond);
-            ticketRepository.insert(daniTicketThird);
+            userRepository.save(dani);
+            userRepository.save(zsolt);
             
-            ticketRepository.insert(zsoltTicketFirst);
-            ticketRepository.insert(zsoltTicketSecond);
-
-            userRepository.insert(dani);
-            userRepository.insert(zsolt);
-
             System.out.println("Inserted seed data!");
         } else {
             System.out.println("Not inserting seed data, database is not empty!");

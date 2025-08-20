@@ -18,8 +18,8 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public List<Ticket> findAllByUserLogin(String login) {
-        return ticketRepository.findAllByUserLogin(login);
+    public List<Ticket> findAllByUserId(String id) {
+        return ticketRepository.findAllByUserId(id);
     }
 
     public Ticket findById(String id) throws Exception {
